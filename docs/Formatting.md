@@ -19,14 +19,14 @@ The standard `editor.insertSpaces` & `editor.tabSize` [format settings](https://
 
   The new strategy used by the formatter formats the current XML by adding or removing some spaces without updating the XML content. The formatter categorizes each element as:
 
-  * `ignore space`
-  * `normalize space`
-  * `mixed content`
-  * `preserve space`. (You can use `xml:space="preserve"` to preserve spaces in some elements or use `xml.format.preserveSpace` to add a given tag element which must preserve spaces.)
+* `ignore space`
+* `normalize space`
+* `mixed content`
+* `preserve space`. (You can use `xml:space="preserve"` to preserve spaces in some elements or use `xml.format.preserveSpace` to add a given tag element which must preserve spaces.)
 
 Once the element is categorized, the element content is formatted according the category:
 
-  * `ignore space` :
+* `ignore space` :
 
 ```xml
 <foo>
@@ -41,7 +41,7 @@ Here `foo` is categorized as `ignore space`, because all children of `foo` are t
 </foo>
 ```
 
- * `normalize space` :
+* `normalize space` :
 
 ```xml
 <foo>
@@ -59,7 +59,7 @@ Here `foo` is categorized as `normalize space` since it only contains text conte
 </foo>
 ```
 
- * `preserve space`
+* `preserve space`
 
 If you want to preserve space, you can use `xml:space="preserve"` to preserve spaces in some elements or use the [`xml.format.preserveSpace`](#xmlformatpreservespace) setting.
 
@@ -79,7 +79,7 @@ Here `foo` is categorized as `preserve space`. After formatting, you should see 
 </foo>
 ```
 
- * `mixed content`
+* `mixed content`
 
 ```xml
 <foo>
@@ -122,7 +122,9 @@ Set to `collapse` to collapse empty elements during formatting.
   ```xml
   <example attr="value" ></example>
   ```
+
   becomes...
+
   ```xml
     <example attr="value" />
   ```
@@ -132,10 +134,13 @@ Set to `expand` to expand empty elements during formatting.
   ```xml
   <example attr="value" />
   ```
+
   becomes...
+
   ```xml
    <example attr="value" ></example>
   ```
+
 ***
 
 ### xml.format.enforceQuoteStyle
@@ -191,6 +196,35 @@ If set to `false`, the document above becomes:
 
 ***
 
+***
+
+### xml.format.preserveAttributeWhitespace
+
+Preserve whitespace that appear before and after attributes. Default is `false`.
+
+If set to `true`, formatting does not change the following document:
+
+  ```xml
+  <?xml version='1.0' encoding='UTF-8'?>
+  <root>
+    <child attr1='value1'      attr2='value2'/>
+    <child attr1='value1'      attr2='value2'/>
+  </root>
+  ```
+
+If set to `false`, the document above becomes:
+
+  ```xml
+  <?xml version='1.0' encoding='UTF-8'?>
+  <root>
+  <root>
+    <child attr1='value1' attr2='value2'/>
+    <child attr1='value1' attr2='value2'/>
+  </root>
+  ```
+
+***
+
 ### xml.format.preservedNewlines
 
 The number of blank lines to leave between tags during formatting.
@@ -200,6 +234,7 @@ The default is 2. This means that if more than two consecutive empty lines are l
 Any number of new lines present that is less than the set number will also be preserved. In other words, if there is 1 new line between tags while `xml.format.preservedNewlines` is set to 2, the single new line will be preserved.
 
   For example, this document:
+
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
 
@@ -215,6 +250,7 @@ Any number of new lines present that is less than the set number will also be pr
   ```
 
   Will be replaced with:
+
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
 
@@ -230,6 +266,7 @@ Any number of new lines present that is less than the set number will also be pr
 If this value is set to 0, then all blank lines will be removed during formatting.
 
   For example, this document:
+
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
 
@@ -241,6 +278,7 @@ If this value is set to 0, then all blank lines will be removed during formattin
   ```
 
   Will be replaced with:
+
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
   <root>
@@ -258,9 +296,10 @@ If this value is set to 0, then all blank lines will be removed during formattin
 
   Overrides the behaviour of [xml.format.preserveAttributeLineBreaks](#xmlformatpreserveattributelinebreaks).
 
-  Please see [xml.format.splitAttributesIndentSize](#xmlformatsplitAttributesIndentSize) for information on configuring the indentation level of the attributes in the case of `splitNewLine`.
+  Please see [xml.format.splitAttributesIndentSize](#xmlformatsplitattributesindentsize) for information on configuring the indentation level of the attributes in the case of `splitNewLine`.
 
   The following xml:
+
   ```xml
   <project a="1" b="2" c="3"></project>
   ```
@@ -268,6 +307,7 @@ If this value is set to 0, then all blank lines will be removed during formattin
   Remains the same when set to `preserve`.
 
   When set to `splitNewLine`, becomes:
+
   ```xml
   <project
       a="1"
@@ -276,6 +316,7 @@ If this value is set to 0, then all blank lines will be removed during formattin
   ```
 
   When set to `alignWithFirstAttr`, becomes:
+
   ```xml
   <project a="1"
            b="2"
@@ -287,6 +328,7 @@ If this value is set to 0, then all blank lines will be removed during formattin
 ### xml.format.joinCDATALines
 
   Set to `true` to join lines in CDATA content during formatting. Defaults to `false`.
+
   ```xml
   <![CDATA[This
   is
@@ -294,7 +336,9 @@ If this value is set to 0, then all blank lines will be removed during formattin
   test
   ]]>
   ```
+
   becomes...
+
   ```xml
   <![CDATA[This is a test ]]>
   ```
@@ -304,12 +348,15 @@ If this value is set to 0, then all blank lines will be removed during formattin
 ### xml.format.preserveEmptyContent
 
   Set to `true` to preserve empty whitespace content.
+
   ```xml
   <project>    </project>
 
   <a> </a>
   ```
+
   becomes...
+
   ```xml
   <project>    </project>
   <a> </a>
@@ -322,6 +369,7 @@ If this value is set to 0, then all blank lines will be removed during formattin
 ### xml.format.joinCommentLines
 
   Set to `true` to join lines in comments during formatting. Defaults to `false`.
+
   ```xml
   <!-- This
   is
@@ -329,7 +377,9 @@ If this value is set to 0, then all blank lines will be removed during formattin
 
   comment -->
   ```
+
   becomes...
+
   ```xml
   <!-- This is my comment -->
   ```
@@ -401,10 +451,13 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
 ### xml.format.spaceBeforeEmptyCloseTag
 
   Set to `true` to insert a space before the end of self closing tags.  Defaults to `true`
+
   ```xml
   <tag/>
   ```
+
   becomes...
+
   ```xml
   <tag />
   ```
@@ -414,10 +467,13 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
 ### files.insertFinalNewline
 
   Set to `true` to insert a final newline at the end of the document.  Defaults to `false`
+
   ```xml
   <a><a/>
   ```
+
   becomes...
+
   ```xml
   <a><a/>
 
@@ -429,6 +485,7 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
 ### files.trimFinalNewlines
 
   Set to `true` to trim final newlines at the end of the document. This setting is overridden if `files.insertFinalNewline` is set to `true`. Defaults to `false`
+
   ```xml
   <a><a/>
 
@@ -436,7 +493,9 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
 
 
   ```
+
   becomes...
+
   ```xml
   <a><a/>
   ```
@@ -468,6 +527,7 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
   Used to configure how to format the content of `xsi:schemaLocation`.  Defaults to `onPair`
 
   To explain the different settings, we will use this xml document as an example:
+
   ```xml
   <ROOT:root
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
@@ -479,11 +539,13 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
       weight='20' />
   </ROOT:root>
   ```
+
   Note that it references two different external schemas. Additionally, the setting [`xml.format.splitAttributes`](#xmlformatsplitattributes) will be set to `splitNewLine` for the formatted examples in order to make the formatted result easier to see.
 
-  * When it is set to `none`, the formatter does not change the content of `xsi:schemaLocation`. The above file would not change after formatting.
+* When it is set to `none`, the formatter does not change the content of `xsi:schemaLocation`. The above file would not change after formatting.
 
-  * When it is set to `onPair`, the formatter groups the content into pairs of namespace and URI, and inserts a new line after each pair. Assuming the other formatting settings are left at their default, the above file would look like this:
+* When it is set to `onPair`, the formatter groups the content into pairs of namespace and URI, and inserts a new line after each pair. Assuming the other formatting settings are left at their default, the above file would look like this:
+
     ```xml
     <ROOT:root
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
@@ -497,7 +559,8 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
     </ROOT:root>
     ```
 
-  * When it is set to `onElement`, the formatter inserts a new line after each namespace and each URI.
+* When it is set to `onElement`, the formatter inserts a new line after each namespace and each URI.
+
     ```xml
     <ROOT:root
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
@@ -517,7 +580,7 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
 
 ### xml.format.splitAttributesIndentSize
 
-  Use to configure how many levels to indent the attributes by when [xml.format.splitAttributes](#xmlformatsplitAttributes) is set to `splitNewLine`.
+  Use to configure how many levels to indent the attributes by when [xml.format.splitAttributes](#xmlformatsplitattributes) is set to `splitNewLine`.
 
   Here are some examples. For these examples, an indentation is two spaces.
 
@@ -529,7 +592,9 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
     <child />
   </robot>
   ```
+
   becomes
+
   ```xml
   <robot
       attribute1="value1"
@@ -548,7 +613,9 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
     <child />
   </robot>
   ```
+
   becomes
+
   ```xml
   <robot
     attribute1="value1"
@@ -567,7 +634,9 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
     <child />
   </robot>
   ```
+
   becomes
+
   ```xml
   <robot
         attribute1="value1"
@@ -577,6 +646,7 @@ If `xml.format.joinContentLines` is set to `true`, the above document becomes:
     <child />
   </robot>
   ```
+
 ***
 
 ### xml.format.closingBracketNewLine
@@ -594,6 +664,7 @@ Defaults to `false`.
 ```
 
 becomes
+
 ```xml
 <a
   b=""
